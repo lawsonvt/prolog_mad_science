@@ -28,3 +28,51 @@ lengthy([_|Tail],N) :-
 % further exercises on page 85
 % DO SOME, YA SLACKER!
 
+% determine the maximum of two numbers
+% max(X, Y, Max)
+
+max(X,X,Max) :-		% same value, that's the max
+	Max is X.
+
+max(X,Y,Max) :-		% X > Y, that's the max
+	X > Y,
+	Max is X.
+
+max(X,Y,Max) :-		% Y > X, that's the max
+	Y > X,
+	Max is Y.
+
+% my solution (above) works, but this is the book solution
+
+max2(X,Y,X) :- 
+	X >= Y.
+max2(X,Y,Y) :-
+	X < Y.
+
+% determine the maximum of a list
+% maxlist(List, Max)
+
+maxlist([X], X).		% only one element, it is the max
+
+maxlist([X, Y | Rest], Max) :-		% grab first two elements
+	maxlist([Y | Rest],MaxRest),	% see if second element is greater than rest
+	max(X, MaxRest, Max).		% compare first element to rest
+
+% determine the sum of a list
+% sumlist(List, Sum)
+
+sumlist([X], X).
+
+sumlist([X, Y | Rest], Sum) :-		% similar structure to maxlist
+	sumlist([Y | Rest], SumRest),	% just adding the rest instead of comparing
+	Sum is SumRest + X.
+
+% determine if a list is ordered
+% ordered(List)
+
+ordered([X]).
+
+ordered([X, Y | Rest]) :-
+	ordered([ Y | Rest]),
+	X =< Y.
+
